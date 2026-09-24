@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import '../assets/styles/Contact.scss';
-// import emailjs from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 
@@ -16,37 +17,44 @@ function Contact() {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<boolean>(false);
 
+  const [sending, setSending] = useState<boolean>(false);
+  const [status, setStatus] = useState<'success' | 'error' | null>(null);
+
   const form = useRef();
 
-  const sendEmail = (e: any) => {
+  const sendEmail = async (e: any) => {
     e.preventDefault();
 
-    setNameError(name === '');
-    setEmailError(email === '');
-    setMessageError(message === '');
+    const isNameEmpty = name.trim() === '';
+    const isEmailEmpty = email.trim() === '';
+    const isMessageEmpty = message.trim() === '';
 
-    /* Uncomment below if you want to enable the emailJS */
+    setNameError(isNameEmpty);
+    setEmailError(isEmailEmpty);
+    setMessageError(isMessageEmpty);
 
-    // if (name !== '' && email !== '' && message !== '') {
-    //   var templateParams = {
-    //     name: name,
-    //     email: email,
-    //     message: message
-    //   };
+    if (isNameEmpty || isEmailEmpty || isMessageEmpty) return;
 
-    //   console.log(templateParams);
-    //   emailjs.send('service_id', 'template_id', templateParams, 'api_key').then(
-    //     (response) => {
-    //       console.log('SUCCESS!', response.status, response.text);
-    //     },
-    //     (error) => {
-    //       console.log('FAILED...', error);
-    //     },
-    //   );
-    //   setName('');
-    //   setEmail('');
-    //   setMessage('');
-    // }
+    setSending(true);
+    setStatus(null);
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string,
+        { name, email, message },
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY as string }
+      );
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setStatus('error');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -65,47 +73,53 @@ function Contact() {
             <div className='form-flex'>
               <TextField
                 required
-                id="outlined-required"
+                id="contact-name"
                 label="Your Name"
                 placeholder="What's your name?"
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                onChange={(e) => setName(e.target.value)}
                 error={nameError}
                 helperText={nameError ? "Please enter your name" : ""}
               />
               <TextField
                 required
-                id="outlined-required"
+                id="contact-email"
                 label="Email / Phone"
                 placeholder="How can I reach you?"
                 value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                onChange={(e) => setEmail(e.target.value)}
                 error={emailError}
                 helperText={emailError ? "Please enter your email or phone number" : ""}
               />
             </div>
             <TextField
               required
-              id="outlined-multiline-static"
+              id="contact-message"
               label="Message"
               placeholder="Send me any inquiries or questions"
               multiline
               rows={10}
               className="body-form"
               value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
+              onChange={(e) => setMessage(e.target.value)}
               error={messageError}
               helperText={messageError ? "Please enter the message" : ""}
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={sendEmail}>
-              Send
+            <Button
+              variant="contained"
+              endIcon={<SendIcon />}
+              onClick={sendEmail}
+              disabled={sending}
+            >
+              {sending ? 'Sending...' : 'Send'}
             </Button>
+
+            {status === 'success' && (
+              <Alert severity="success">Thanks! Your message was sent.</Alert>
+            )}
+            {status === 'error' && (
+              <Alert severity="error">Something went wrong. Please try again later.</Alert>
+            )}
           </Box>
         </div>
       </div>
