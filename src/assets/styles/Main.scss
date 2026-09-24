@@ -51,9 +51,15 @@
 
 .about-section .image-wrapper {
     z-index: 2;
+    flex-shrink: 0; // stops the flex row from squeezing it narrower than it is tall
+
     img {
-        width: 150px;
+        width: 200px;
+        height: 220px;          // equal width and height makes a true circle
         border-radius: 50%;
+        object-fit: cover;      // crops the photo to fit instead of stretching it
+        object-position: center top; // change to e.g. 50% 30% to move the crop
+        display: block;
     }
 }
 

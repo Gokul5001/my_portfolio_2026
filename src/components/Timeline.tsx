@@ -16,50 +16,62 @@ function Timeline() {
             className="vertical-timeline-element--work"
             contentStyle={{ background: 'white', color: 'rgb(39, 40, 34)' }}
             contentArrowStyle={{ borderRight: '7px solid  white' }}
-            date="2022 - present"
+            date="Sep 2026 - present"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Technology Consultant</h3>
-            <h4 className="vertical-timeline-element-subtitle">Dallas, TX</h4>
+            <h3 className="vertical-timeline-element-title">Full Stack Developer</h3>
+            <h4 className="vertical-timeline-element-subtitle">Lemon Trip India, Remote</h4>
             <p>
-              Full-stack Web Development, GenAI/LLM, Project Management, Business Development
+              React.js, Node.js &amp; Express.js, REST APIs, MongoDB, MySQL, PostgreSQL, Authentication
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2022"
+            date="Aug 2026 - Sep 2026"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Full Stack Engineer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">Tech Intern</h3>
+            <h4 className="vertical-timeline-element-subtitle">Jholabazar, Quick-commerce Platform</h4>
             <p>
-              Frontend Development, Backend Development, User Experience, Team Leading
+              Production Web Apps, Mobile Apps, Live Platform Development
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2021 - 2021"
+            date="Oct 2025 - Aug 2026"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Staff Engineer Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Laie, HI</h4>
+            <h3 className="vertical-timeline-element-title">Founding Full Stack AI Engineer</h3>
+            <h4 className="vertical-timeline-element-subtitle">Zeromedixine, Bengaluru, Karnataka</h4>
             <p>
-              Full-stack Development, API Development, User Experience
+              Full-stack Development, AI/ML Integration, Telehealth, Payments, Clinical Decision Support, Cloud Infrastructure
             </p>
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            date="2020 - 2020"
+            date="Aug 2024 - Sep 2025"
             iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
-            <h3 className="vertical-timeline-element-title">Data Analyst Intern</h3>
-            <h4 className="vertical-timeline-element-subtitle">Tokyo, Japan</h4>
+            <h3 className="vertical-timeline-element-title">AI/ML Engineer &amp; Web Developer</h3>
+            <h4 className="vertical-timeline-element-subtitle">Nithra Apps, Namakkal, Tamil Nadu</h4>
             <p>
-              Automation, Data Governance, Statistical Analysis
+              LLM Integration, Chatbot Development, Node.js, Gemini API, Admin Dashboards
+            </p>
+          </VerticalTimelineElement>
+          <VerticalTimelineElement
+            className="vertical-timeline-element--work"
+            date="May 2024 - Aug 2024"
+            iconStyle={{ background: '#5000ca', color: 'rgb(39, 40, 34)' }}
+            icon={<FontAwesomeIcon icon={faBriefcase} />}
+          >
+            <h3 className="vertical-timeline-element-title">Web Development Intern</h3>
+            <h4 className="vertical-timeline-element-subtitle">Nithra Apps, Namakkal, Tamil Nadu</h4>
+            <p>
+              Website Development, Troubleshooting, Client Projects, Research &amp; Reporting
             </p>
           </VerticalTimelineElement>
         </VerticalTimeline>

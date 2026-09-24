@@ -2,43 +2,57 @@ import React from "react";
 import '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact, faDocker, faPython } from '@fortawesome/free-brands-svg-icons';
+import { faMobileScreenButton } from '@fortawesome/free-solid-svg-icons';
 import Chip from '@mui/material/Chip';
 import '../assets/styles/Expertise.scss';
 
 const labelsFirst = [
-    "React",
+    "React.js",
+    "Next.js",
     "TypeScript",
     "JavaScript",
     "HTML5",
     "CSS3",
-    "SASS",
+    "Tailwind CSS",
+    "Node.js",
+    "Express.js",
     "Flask",
-    "Python",
-    "SQL",
+    "REST APIs",
+    "MongoDB",
+    "MySQL",
     "PostgreSQL",
     "Postman"
 ];
 
+const labelsMobile = [
+    "Flutter",
+    "Dart",
+    "React Native",
+    "REST API Integration",
+    "Authentication",
+];
+
 const labelsSecond = [
     "Git",
+    "GitHub",
     "GitHub Actions",
     "Docker",
     "AWS",
-    "Azure",
-    "Linux",
-    "Snowflake",
-    "Pandas",
-    "Selenium",
+    "Hostinger VPS",
+    "Chrome DevTools",
+    "Aisensy",
 ];
 
 const labelsThird = [
     "OpenAI",
-    "Groq",
+    "Gemini API",
     "LangChain",
-    "Qdrant",
-    "Hugging Face",
-    "LlamaIndex",
-    "Streamlit",
+    "RAG",
+    "Pinecone",
+    "NLP",
+    "Scikit-learn",
+    "MediaPipe",
+    "Prompt Engineering",
 ];
 
 function Expertise() {
@@ -50,7 +64,7 @@ function Expertise() {
                 <div className="skill">
                     <FontAwesomeIcon icon={faReact} size="3x"/>
                     <h3>Full Stack Web Development</h3>
-                    <p>I have built a diverse array of web applications from scratch using modern technologies such as React and Flask. I have a strong proficiency in the SDLC process and frontend + backend development.</p>
+                    <p>I build responsive, production-ready web applications from scratch using React and Node.js. I work across the whole stack: reusable front-end components, REST APIs, databases, authentication, and third-party integrations.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsFirst.map((label, index) => (
@@ -60,9 +74,21 @@ function Expertise() {
                 </div>
 
                 <div className="skill">
+                    <FontAwesomeIcon icon={faMobileScreenButton} size="3x"/>
+                    <h3>Mobile App Development</h3>
+                    <p>I build cross-platform mobile apps for Android and iOS using Flutter and React Native, connecting them to the same REST APIs and backends that power my web applications.</p>
+                    <div className="flex-chips">
+                        <span className="chip-title">Tech stack:</span>
+                        {labelsMobile.map((label, index) => (
+                            <Chip key={index} className='chip' label={label} />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="skill">
                     <FontAwesomeIcon icon={faDocker} size="3x"/>
                     <h3>DevOps & Automation</h3>
-                    <p>Once the application is built, I help clients set up DevOps testing, CI/CD pipelines, and deployment automation to support the successful Go-Live.</p>
+                    <p>I containerize applications, set up CI/CD pipelines, and deploy to cloud and VPS hosting. I also automate everyday workflows such as appointment scheduling and patient reminders.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsSecond.map((label, index) => (
@@ -74,7 +100,7 @@ function Expertise() {
                 <div className="skill">
                     <FontAwesomeIcon icon={faPython} size="3x"/>
                     <h3>GenAI & LLM</h3>
-                    <p>Stay relevant in the market by leveraging the latest AI models in your projects. I have professional experience building enterprise grade GenAI-enabled solutions to empower intelligent decision making.</p>
+                    <p>I add LLMs, RAG, and NLP to real products, from customer-support chatbots to AI-powered healthcare workflows such as teleconsultation, follow-ups, and posture analysis.</p>
                     <div className="flex-chips">
                         <span className="chip-title">Tech stack:</span>
                         {labelsThird.map((label, index) => (
