@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import '../assets/styles/Contact.scss';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import SendIcon from '@mui/icons-material/Send';
-import TextField from '@mui/material/TextField';
 
 interface FormState {
   name: string;
@@ -78,43 +76,55 @@ function Contact() {
           <h1>Contact Me</h1>
           <p>Got a project waiting to be realized? Let's collaborate and make it happen!</p>
 
-          <Box component="form" noValidate autoComplete="off" className="contact-form">
+          <form noValidate autoComplete="off" className="contact-form">
             <div className="form-flex">
-              <TextField
-                required
-                id="contact-name"
-                label="Your Name"
-                placeholder="What's your name?"
-                value={form.name}
-                onChange={handleChange('name')}
-                error={errors.name}
-                helperText={errors.name ? 'Please enter your name' : ''}
-              />
-              <TextField
-                required
-                id="contact-email"
-                label="Email / Phone"
-                placeholder="How can I reach you?"
-                value={form.email}
-                onChange={handleChange('email')}
-                error={errors.email}
-                helperText={errors.email ? 'Please enter your email or phone number' : ''}
-              />
+              <div className="field-group">
+                <label htmlFor="contact-name">
+                  Your Name<span className="required">*</span>
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  placeholder="What's your name?"
+                  value={form.name}
+                  onChange={handleChange('name')}
+                  className={errors.name ? 'has-error' : ''}
+                />
+                {errors.name && <span className="error-text">Please enter your name</span>}
+              </div>
+
+              <div className="field-group">
+                <label htmlFor="contact-email">
+                  Email / Phone<span className="required">*</span>
+                </label>
+                <input
+                  id="contact-email"
+                  type="text"
+                  placeholder="How can I reach you?"
+                  value={form.email}
+                  onChange={handleChange('email')}
+                  className={errors.email ? 'has-error' : ''}
+                />
+                {errors.email && (
+                  <span className="error-text">Please enter your email or phone number</span>
+                )}
+              </div>
             </div>
 
-            <TextField
-              required
-              id="contact-message"
-              label="Message"
-              placeholder="Send me any inquiries or questions"
-              multiline
-              rows={10}
-              className="body-form"
-              value={form.message}
-              onChange={handleChange('message')}
-              error={errors.message}
-              helperText={errors.message ? 'Please enter the message' : ''}
-            />
+            <div className="field-group body-form">
+              <label htmlFor="contact-message">
+                Message<span className="required">*</span>
+              </label>
+              <textarea
+                id="contact-message"
+                placeholder="Send me any inquiries or questions"
+                rows={10}
+                value={form.message}
+                onChange={handleChange('message')}
+                className={errors.message ? 'has-error' : ''}
+              />
+              {errors.message && <span className="error-text">Please enter the message</span>}
+            </div>
 
             <div className="form-footer">
               {status === 'success' && (
@@ -133,7 +143,7 @@ function Contact() {
                 {sending ? 'Sending...' : 'Send'}
               </Button>
             </div>
-          </Box>
+          </form>
         </div>
       </div>
     </div>

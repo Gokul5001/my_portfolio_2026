@@ -6,35 +6,64 @@
 
 .contact-form {
   padding-top: 20px;
+  width: 100%;
 
-  // Text visibility fix: input/label colors don't inherit
-  // dark-mode's white text, since the fieldset background is white.
-  .MuiInputBase-input {
-    color: #050f0b !important;
+  label {
+    display: block;
+    font-size: 1.2rem;
+    font-family: 'DomaineDispNar-Medium', sans-serif;
+    color: white;
+    margin-bottom: 6px;
   }
 
-  .MuiInputLabel-root {
-    color: rgba(0, 0, 0, 0.6) !important;
+  .required {
+    color: #ff6b6b;
+    margin-left: 3px;
   }
 
-  .MuiInputLabel-root.Mui-focused {
-    color: #5000ca !important;
-  }
-
-  fieldset {
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
     background-color: white;
+    color: #050f0b;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 4px;
+    padding: 14px 12px;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    outline: none;
+    transition: border-color 0.15s ease-in-out;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &:focus {
+      border-color: #5000ca;
+      border-width: 2px;
+      padding: 13px 11px; // compensate for thicker border
+    }
+
+    &.has-error {
+      border-color: #d32f2f;
+    }
   }
 
-  .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(0, 0, 0, 0.23) !important;
+  textarea {
+    resize: vertical;
+    font-family: inherit;
   }
 
-  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(0, 0, 0, 0.4) !important;
-  }
-
-  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #5000ca !important;
+  .error-text {
+    display: block;
+    color: #d32f2f;
+    font-size: 0.8rem;
+    margin-top: 4px;
   }
 
   .form-footer {
@@ -61,26 +90,16 @@
   }
 }
 
-label {
-  font-size: 1.2rem;
-  font-family: 'DomaineDispNar-Medium', sans-serif;
-}
-
 .form-flex {
   display: flex;
   gap: 15px;
   padding-bottom: 15px;
 }
 
-.form-flex .MuiFormControl-root {
+.field-group {
   width: 100%;
 }
 
-form {
-  width: 100% !important;
-}
-
 .body-form {
-  width: 100% !important;
-  margin-bottom: 15px !important;
+  margin-bottom: 15px;
 }
