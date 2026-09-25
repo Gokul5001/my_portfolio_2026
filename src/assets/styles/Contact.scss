@@ -7,19 +7,57 @@
 .contact-form {
   padding-top: 20px;
 
+  // Text visibility fix: input/label colors don't inherit
+  // dark-mode's white text, since the fieldset background is white.
+  .MuiInputBase-input {
+    color: #050f0b !important;
+  }
+
+  .MuiInputLabel-root {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .MuiInputLabel-root.Mui-focused {
+    color: #5000ca !important;
+  }
+
+  fieldset {
+    background-color: white;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.23) !important;
+  }
+
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #5000ca !important;
+  }
+
+  .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+
+    .MuiAlert-root {
+      flex: 1;
+    }
+  }
+
   button {
-    float: right;
     background-color: white;
     color: #050f0b;
+    white-space: nowrap;
   }
 
   button:hover {
     background-color: #5000ca;
     color: white;
-  }
-
-  fieldset {
-    background-color: white;
   }
 }
 

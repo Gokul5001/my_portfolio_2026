@@ -1,56 +1,70 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/Contact.scss';
-import emailjs from '@emailjs/browser';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface FormErrors {
+  name: boolean;
+  email: boolean;
+  message: boolean;
+}
+
+const initialForm: FormState = { name: '', email: '', message: '' };
+const initialErrors: FormErrors = { name: false, email: false, message: false };
+
 function Contact() {
-
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
-
-  const [nameError, setNameError] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [messageError, setMessageError] = useState<boolean>(false);
-
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [errors, setErrors] = useState<FormErrors>(initialErrors);
   const [sending, setSending] = useState<boolean>(false);
   const [status, setStatus] = useState<'success' | 'error' | null>(null);
 
-  const form = useRef();
+  const handleChange = (field: keyof FormState) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  };
 
-  const sendEmail = async (e: any) => {
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {
+      name: form.name.trim() === '',
+      email: form.email.trim() === '',
+      message: form.message.trim() === '',
+    };
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(Boolean);
+  };
+
+  const sendEmail = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    const isNameEmpty = name.trim() === '';
-    const isEmailEmpty = email.trim() === '';
-    const isMessageEmpty = message.trim() === '';
-
-    setNameError(isNameEmpty);
-    setEmailError(isEmailEmpty);
-    setMessageError(isMessageEmpty);
-
-    if (isNameEmpty || isEmailEmpty || isMessageEmpty) return;
+    if (!validate()) return;
 
     setSending(true);
     setStatus(null);
 
     try {
-      await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID as string,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string,
-        { name, email, message },
-        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY as string }
-      );
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) throw new Error('Request failed');
+
       setStatus('success');
-      setName('');
-      setEmail('');
-      setMessage('');
+      setForm(initialForm);
+      setErrors(initialErrors);
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Send error:', error);
       setStatus('error');
     } finally {
       setSending(false);
@@ -63,35 +77,31 @@ function Contact() {
         <div className="contact_wrapper">
           <h1>Contact Me</h1>
           <p>Got a project waiting to be realized? Let's collaborate and make it happen!</p>
-          <Box
-            ref={form}
-            component="form"
-            noValidate
-            autoComplete="off"
-            className='contact-form'
-          >
-            <div className='form-flex'>
+
+          <Box component="form" noValidate autoComplete="off" className="contact-form">
+            <div className="form-flex">
               <TextField
                 required
                 id="contact-name"
                 label="Your Name"
                 placeholder="What's your name?"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                error={nameError}
-                helperText={nameError ? "Please enter your name" : ""}
+                value={form.name}
+                onChange={handleChange('name')}
+                error={errors.name}
+                helperText={errors.name ? 'Please enter your name' : ''}
               />
               <TextField
                 required
                 id="contact-email"
                 label="Email / Phone"
                 placeholder="How can I reach you?"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                error={emailError}
-                helperText={emailError ? "Please enter your email or phone number" : ""}
+                value={form.email}
+                onChange={handleChange('email')}
+                error={errors.email}
+                helperText={errors.email ? 'Please enter your email or phone number' : ''}
               />
             </div>
+
             <TextField
               required
               id="contact-message"
@@ -100,26 +110,29 @@ function Contact() {
               multiline
               rows={10}
               className="body-form"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              error={messageError}
-              helperText={messageError ? "Please enter the message" : ""}
+              value={form.message}
+              onChange={handleChange('message')}
+              error={errors.message}
+              helperText={errors.message ? 'Please enter the message' : ''}
             />
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={sendEmail}
-              disabled={sending}
-            >
-              {sending ? 'Sending...' : 'Send'}
-            </Button>
 
-            {status === 'success' && (
-              <Alert severity="success">Thanks! Your message was sent.</Alert>
-            )}
-            {status === 'error' && (
-              <Alert severity="error">Something went wrong. Please try again later.</Alert>
-            )}
+            <div className="form-footer">
+              {status === 'success' && (
+                <Alert severity="success">Thanks! Your message was sent.</Alert>
+              )}
+              {status === 'error' && (
+                <Alert severity="error">Something went wrong. Please try again later.</Alert>
+              )}
+
+              <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={sendEmail}
+                disabled={sending}
+              >
+                {sending ? 'Sending...' : 'Send'}
+              </Button>
+            </div>
           </Box>
         </div>
       </div>
