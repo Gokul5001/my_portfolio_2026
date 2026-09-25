@@ -1,14 +1,14 @@
 import React from "react";
-import mock01 from '../assets/images/Zeromedixine_web_app.png';
-import mock02 from '../assets/images/Zeromedixine_app.png';
+import mock01 from '../assets/images/Zeromedixine_web_app.webp';
+import mock02 from '../assets/images/Zeromedixine_app.webp';
 // import mock03 from '../assets/images/mock03.png';
-import mock04 from '../assets/images/forparents.png';
-import mock05 from '../assets/images/Weather_app.png';
-import mock06 from '../assets/images/News_web_app.png';
-import mock07 from '../assets/images/pizzaa.png';
-import mock08 from '../assets/images/Travel_web_app.png';
-import mock09 from '../assets/images/CRM_Project_Image.png';
-import mock10 from '../assets/images/qrcode.png';
+import mock04 from '../assets/images/forparents.webp';
+import mock05 from '../assets/images/Weather_app.webp';
+import mock06 from '../assets/images/News_web_app.webp';
+import mock07 from '../assets/images/pizzaa.webp';
+import mock08 from '../assets/images/Travel_web_app.webp';
+import mock09 from '../assets/images/CRM_Project_Image.webp';
+import mock10 from '../assets/images/qrcode.webp';
 import '../assets/styles/Project.scss';
 
 // Replace each "#" with the real link to your project (web app, GitHub, or Play Store).
